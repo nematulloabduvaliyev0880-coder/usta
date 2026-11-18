@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UstaOS — Biznes boshqaruvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="UstaOS bosh sahifa">
+        <span class="brand-mark">U</span><span>usta<span class="brand-light">OS</span></span>
+      </a>
+      <div class="workspace">
+        <div class="workspace-icon">U</div>
+        <div><strong id="businessNameSide">Usta servis</strong><small>Biznes kabineti</small></div>
+        <span class="chevron">⌄</span>
+      </div>
+      <div class="nav-label">ASOSIY</div>
+      <nav class="nav">
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Boshqaruv paneli</button>
+        <button class="nav-link" data-page="orders"><span>▤</span> Buyurtmalar <b id="orderNavCount">0</b></button>
+        <button class="nav-link" data-page="customers"><span>♙</span> Mijozlar</button>
+        <button class="nav-link" data-page="services"><span>⚒</span> Xizmatlar</button>
+        <button class="nav-link" data-page="finance"><span>◈</span> Moliya</button>
+      </nav>
+      <div class="nav-label report-label">BOSHQARUV</div>
+      <nav class="nav">
+        <button class="nav-link" data-page="reports"><span>▥</span> Hisobotlar</button>
+        <button class="nav-link" data-page="settings"><span>⚙</span> Sozlamalar</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">✦</div><strong>Yordam kerakmi?</strong><p>UstaOS imkoniyatlari bilan tanishing.</p><button id="helpBtn">Yordam markazi ↗</button></div>
+        <div class="profile"><div class="avatar">NA</div><div><strong>Ne'matullo</strong><small>Administrator</small></div><span class="dots">•••</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Menyuni ochish">☰</button>
+        <div class="breadcrumb">Ish joyi <span>/</span> <strong id="breadcrumbTitle">Boshqaruv paneli</strong></div>
+        <div class="top-actions"><span class="today" id="todayLabel"></span><button class="icon-btn" title="Bildirishnomalar">♧<i></i></button><div class="top-avatar">NA</div></div>
+      </header>
+
+      <section class="page active-page" id="page-dashboard">
+        <div class="page-heading"><div><div class="eyebrow">UMUMIY KO‘RINISH</div><h1>Xush kelibsiz, Ne'matullo <span class="wave">✦</span></h1><p>Bugungi biznes faoliyatingiz haqida qisqacha ma'lumot.</p></div><button class="primary-btn" id="quickAdd">＋ Yangi buyurtma</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Bugungi daromad</span><span class="stat-icon green">↗</span></div><strong id="todayRevenue">0 so‘m</strong><small class="muted">Bugun yakunlangan buyurtmalar</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Buyurtmalar</span><span class="stat-icon blue">▤</span></div><strong id="totalOrders">0</strong><small class="muted"><span class="positive" id="pendingOrders">0 ta</span> jarayonda</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Mijozlar</span><span class="stat-icon purple">♙</span></div><strong id="totalCustomers">0</strong><small class="muted">Jami mijozlar soni</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Umumiy xarajat</span><span class="stat-icon orange">◈</span></div><strong id="totalExpenses">0 so‘m</strong><small class="muted">Kiritilgan xarajatlar</small></article>
+        </div>
+        <div class="dashboard-grid">
+          <article class="panel chart-panel"><div class="panel-heading"><div><h2>Daromad tahlili</h2><p>Oxirgi 7 kunlik ko‘rsatkich</p></div><span class="period-pill">7 kun ▾</span></div><div class="chart-summary"><strong id="weekRevenue">0 so‘m</strong><span class="muted">Haftalik tushum</span></div><div class="chart" id="revenueChart"><div class="chart-empty">Ma'lumotlar paydo bo‘lishi uchun buyurtmalarni yakunlang.</div></div></article>
+          <article class="panel"><div class="panel-heading"><div><h2>Buyurtma holati</h2><p>Joriy buyurtmalar</p></div><span class="more">•••</span></div><div class="status-chart" id="statusChart"><div class="donut"><span id="statusTotal">0<small> jami</small></span></div><div class="legend"><span><i class="dot dot-green"></i> Yakunlangan <b id="completedCount">0</b></span><span><i class="dot dot-blue"></i> Jarayonda <b id="progressCount">0</b></span><span><i class="dot dot-orange"></i> Kutilmoqda <b id="waitingCount">0</b></span></div></div></article>
+        </div>
+        <article class="panel table-panel"><div class="panel-heading"><div><h2>So‘nggi buyurtmalar</h2><p>Eng oxirgi qo‘shilgan buyurtmalar</p></div><button class="text-btn" data-goto="orders">Barchasini ko‘rish →</button></div><div class="table-wrap"><table><thead><tr><th>BUYURTMA</th><th>MIJOZ</th><th>XIZMAT</th><th>SANA</th><th>SUMMA</th><th>HOLAT</th></tr></thead><tbody id="recentOrders"></tbody></table><div class="empty-state" id="recentEmpty">Hozircha buyurtmalar yo‘q. Birinchi buyurtmani qo‘shing.</div></div></article>
+      </section>
+
+      <section class="page" id="page-orders">
+        <div class="page-heading"><div><div class="eyebrow">ISH JARAYONI</div><h1>Buyurtmalar</h1><p>Barcha buyurtmalarni bir joyda boshqaring.</p></div><button class="primary-btn" id="addOrderBtn">＋ Buyurtma qo‘shish</button></div>
+        <div class="toolbar"><div class="search-box">⌕ <input id="orderSearch" placeholder="Buyurtma yoki mijozni qidirish..."></div><select id="orderFilter"><option value="all">Barcha holatlar</option><option value="Kutilmoqda">Kutilmoqda</option><option value="Jarayonda">Jarayonda</option><option value="Yakunlangan">Yakunlangan</option></select></div>
+        <article class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>BUYURTMA</th><th>MIJOZ</th><th>XIZMAT</th><th>SANA</th><th>SUMMA</th><th>HOLAT</th><th></th></tr></thead><tbody id="ordersTable"></tbody></table><div class="empty-state" id="ordersEmpty">Buyurtmalar topilmadi.</div></div></article>
+      </section>
+
+      <section class="page" id="page-customers">
+        <div class="page-heading"><div><div class="eyebrow">MIJOZLAR BAZASI</div><h1>Mijozlar</h1><p>Mijozlar ma'lumotlari va ular bilan ishlash tarixi.</p></div><button class="primary-btn" id="addCustomerBtn">＋ Mijoz qo‘shish</button></div>
+        <div class="toolbar"><div class="search-box">⌕ <input id="customerSearch" placeholder="Ism yoki telefon bo‘yicha qidirish..."></div></div>
+        <div class="customer-grid" id="customerGrid"></div><div class="empty-state panel" id="customersEmpty">Hozircha mijozlar yo‘q.</div>
+      </section>
+
+      <section class="page" id="page-services">
+        <div class="page-heading"><div><div class="eyebrow">XIZMATLAR KATALOGI</div><h1>Xizmatlar</h1><p>Biznesingiz taklif qiladigan xizmatlar va narxlar.</p></div><button class="primary-btn" id="addServiceBtn">＋ Xizmat qo‘shish</button></div>
+        <div class="service-grid" id="serviceGrid"></div><div class="empty-state panel" id="servicesEmpty">Hozircha xizmatlar qo‘shilmagan.</div>
+      </section>
+
+      <section class="page" id="page-finance">
+        <div class="page-heading"><div><div class="eyebrow">MOLIYAVIY NAZORAT</div><h1>Moliya</h1><p>Daromad va xarajatlaringizni nazorat qiling.</p></div><button class="primary-btn" id="addExpenseBtn">＋ Xarajat qo‘shish</button></div>
+        <div class="stats-grid finance-stats"><article class="stat-card"><div class="stat-top"><span>Jami daromad</span><span class="stat-icon green">↗</span></div><strong id="financeIncome">0 so‘m</strong></article><article class="stat-card"><div class="stat-top"><span>Jami xarajat</span><span class="stat-icon orange">↘</span></div><strong id="financeExpense">0 so‘m</strong></article><article class="stat-card"><div class="stat-top"><span>Sof natija</span><span class="stat-icon purple">◈</span></div><strong id="financeProfit">0 so‘m</strong></article></div>
+        <article class="panel table-panel"><div class="panel-heading"><div><h2>Xarajatlar tarixi</h2><p>Kiritilgan barcha xarajatlar</p></div></div><div class="table-wrap"><table><thead><tr><th>IZOH</th><th>SANA</th><th>SUMMA</th><th></th></tr></thead><tbody id="expenseTable"></tbody></table><div class="empty-state" id="expensesEmpty">Hozircha xarajatlar yo‘q.</div></div></article>
+      </section>
+
+      <section class="page" id="page-reports">
+        <div class="page-heading"><div><div class="eyebrow">BIZNES TAHLILI</div><h1>Hisobotlar</h1><p>Biznesingizning asosiy ko‘rsatkichlari.</p></div><button class="secondary-btn" id="exportBtn">↓ CSV yuklab olish</button></div>
+        <div class="stats-grid"><article class="stat-card"><div class="stat-top"><span>Buyurtmalar soni</span><span class="stat-icon blue">▤</span></div><strong id="reportOrders">0</strong></article><article class="stat-card"><div class="stat-top"><span>O‘rtacha chek</span><span class="stat-icon purple">◈</span></div><strong id="averageCheck">0 so‘m</strong></article><article class="stat-card"><div class="stat-top"><span>Yakunlangan</span><span class="stat-icon green">✓</span></div><strong id="reportCompleted">0</strong></article></div>
+        <article class="panel"><div class="panel-heading"><div><h2>Faoliyat xulosasi</h2><p>Joriy ma'lumotlar asosida</p></div></div><div class="report-note" id="reportSummary">Hisobot uchun buyurtmalar qo‘shing.</div></article>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-heading"><div><div class="eyebrow">SHAXSIY SOZLAMALAR</div><h1>Sozlamalar</h1><p>Biznes ma'lumotlarini boshqaring.</p></div></div>
+        <article class="panel settings-panel"><h2>Biznes ma'lumotlari</h2><p class="muted">Kabinetda ko‘rinadigan ma'lumotlar.</p><form id="settingsForm" class="form-grid"><label>Biznes nomi<input id="businessName" required maxlength="45" placeholder="Masalan: Usta servis"></label><label>Egasi ismi<input id="ownerName" required maxlength="45" placeholder="Ismingiz"></label><label>Telefon raqami<input id="businessPhone" placeholder="+998 90 123 45 67"></label><div class="form-actions"><button class="primary-btn" type="submit">O‘zgarishlarni saqlash</button></div></form><div class="danger-zone"><div><strong>Demo ma'lumotlarini tozalash</strong><p>Barcha buyurtma, mijoz va xarajatlar o‘chiriladi.</p></div><button class="danger-btn" id="resetData">Ma'lumotlarni tozalash</button></div></article>
+      </section>
+      <footer>© 2026 UstaOS <span>Biznesingizni oson boshqaring.</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><div class="eyebrow">USTAOS</div><h2 id="modalTitle">Yangi ma'lumot</h2></div><button class="close-btn" id="closeModal" aria-label="Yopish">×</button></div><form id="modalForm"><div id="modalFields" class="form-grid"></div><div class="modal-actions"><button type="button" class="secondary-btn" id="cancelModal">Bekor qilish</button><button type="submit" class="primary-btn">Saqlash</button></div></form></div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
